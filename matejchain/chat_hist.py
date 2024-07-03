@@ -64,6 +64,7 @@ class ChatHist:
         """
         self.msgs.append(msg)
         self._apply_limit()
+        return self
 
     def _apply_limit(self):
         n_msgs = len(self.msgs)

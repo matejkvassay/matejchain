@@ -58,6 +58,9 @@ class Msg:
         """
         return self.role == ROLE_TOOL
 
+    def __eq__(self, other):
+        return (other.role == self.role) and (other.content == self.content)
+
     def __str__(self):
         return f"{self.role}: {self.content}"
 
