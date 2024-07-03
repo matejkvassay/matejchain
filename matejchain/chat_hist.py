@@ -9,8 +9,6 @@ class ChatHist:
     This message will then always occupy 1st place in chat history as new messages are added.
     Keep in mind setting system message will allocate 1 slot from chat history size <limit>.
 
-
-
     Example initializing and adding 2 messages to history in 2 alternative ways:
         ```
         hist = ChatHist(limit=5, sys_msg="You are a helpful assistant")
@@ -40,9 +38,9 @@ class ChatHist:
 
     def to_list(self) -> list[Msg]:
         """
-        Get list of contained messages.
+        Get message history as list of messages.
 
-        :return: list of messages, oldest on lowest index
+        :return: list of messages (Msg), oldest on lowest index
         """
         if self.sys_msg is None:
             return self.msgs
@@ -51,6 +49,8 @@ class ChatHist:
     def to_openai(self) -> list[dict]:
         """
         Get list of dictionaries compatible with OpenAI completions API.
+        Oldest message is on lowest index.
+
         :return: list of dicts, can be passed to OpenAI client as messages
                  e.g. [{"role": "<?>", "content": "<?>"}, ... ]
         """
@@ -59,6 +59,7 @@ class ChatHist:
     def add(self, msg: Msg):
         """
         Add new message to the end of history.
+
         :param msg: Any message, child of Msg class
         """
         self.msgs.append(msg)
