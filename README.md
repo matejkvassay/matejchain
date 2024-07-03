@@ -1,20 +1,21 @@
 ### Dev
 
 #### Install package
-```commandline
-pip install -e .
+```bash
+pip install -e '.[dev]'
+
 ```
 
 #### Run tests
-```commandline
+```bash
 pytest
 ```
 
 #### Configure pre-commit hook
-```commandline
+```bash
 pip install pre-commit
 ```
 
-```commandline
+```bash
 pre-commit install
 ```

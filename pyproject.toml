@@ -17,5 +17,12 @@ dependencies = [
     "pytest"
 ]
 
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pre-commit"
+]
+
+
 [tool.setuptools.packages.find]
 where = ["matejchain"]
