@@ -25,4 +25,4 @@ dev = [
 
 
 [tool.setuptools.packages.find]
-where = ["matejchain"]
+where = ["."]
