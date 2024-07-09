@@ -62,7 +62,7 @@ class Msg:
         return (other.role == self.role) and (other.content == self.content)
 
     def __str__(self):
-        return f"{self.role}: {self.content}"
+        return f"{self.role.upper()}: {self.content}"
 
     def __repr__(self):
         return self.__str__()

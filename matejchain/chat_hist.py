@@ -36,6 +36,31 @@ class ChatHist:
         self.limit = limit
         self.msgs = list()
 
+    @classmethod
+    def from_msgs(cls, msgs, limit: int = 3, register_sys_msg=True):
+        """
+
+        :param msgs: List of Msg instances.
+        :param limit: int maximum number of messages held in this history.
+                      If limit exceeded on add(), the oldest message is removed.
+                      If sys_msg is passed it takes 1 slot from history and
+                      limit left for other messages = limit-1.
+        :param register_sys_msg: If True and there is system message on index 0 in msgs,
+                                 then this system message will be set as the main history
+                                 system message (see __init__ docs).
+                                 If there is not a system message on index 0 then
+                                 it does nothing (sys_msg = None).
+                                 If False then it does nothing (sys_msg = None).
+        :return: instance of ChatHist with msgs filled in.
+        """
+        sys_msg = None
+        if isinstance(msgs[0], SysMsg) and register_sys_msg is True:
+            sys_msg = msgs[0]
+            msgs = msgs[1:]
+        instance = cls(limit=limit, sys_msg=sys_msg)
+        instance.add_many(msgs)
+        return instance
+
     def to_list(self) -> list[Msg]:
         """
         Get message history as list of messages.
@@ -66,7 +91,20 @@ class ChatHist:
         self._apply_limit()
         return self
 
+    def add_many(self, msgs: list[Msg]):
+        """
+        Add multiple new messages from given list to the end of history.
+
+        :param msgs: list of Msg instances
+        """
+        for m in msgs:
+            self.add(m)
+
     def _apply_limit(self):
+        """
+        Cuts message list in history to configured limit.
+        Keeps sys_msg on top if sys_msg configured.
+        """
         n_msgs = len(self.msgs)
         if self.sys_msg is not None:
             n_msgs += 1
@@ -85,4 +123,4 @@ class ChatHist:
         return str(self)
 
     def __str__(self):
-        return "\n".join([str(x) for x in self.to_list()])
+        return "\n".join(f"{i + 1}. {m}" for (i, m) in enumerate(self.to_list()))
