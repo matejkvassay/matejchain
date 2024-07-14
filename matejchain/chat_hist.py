@@ -111,6 +111,12 @@ class ChatHist:
         if n_msgs > self.limit:
             self.msgs = self.msgs[1:]
 
+    def __getitem__(self, item):
+        all_msgs = self.msgs
+        if self.sys_msg is None:
+            all_msgs = [self.sys_msg] + all_msgs
+        return all_msgs.__getitem__(item)
+
     def __len__(self):
         if self.sys_msg is None:
             return len(self.msgs)

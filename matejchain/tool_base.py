@@ -3,7 +3,7 @@ from tool_param import ToolParam
 from functools import cached_property
 
 
-class BaseTool(ABC):
+class ToolBase(ABC):
     def __init__(self, name: str, desc: str, params: list[ToolParam] | None = None):
         self.name = name
         self.desc = desc
