@@ -71,7 +71,8 @@ class ChatHist:
             return self.msgs
         return [self.sys_msg] + self.msgs
 
-    def to_openai(self) -> list[dict]:
+    @property
+    def openai_fmt(self) -> list[dict]:
         """
         Get list of dictionaries compatible with OpenAI completions API.
         Oldest message is on lowest index.
