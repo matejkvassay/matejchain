@@ -8,12 +8,9 @@ class ToolBase(ABC):
         self.name = name
         self.desc = desc
         self.params = params
-        self.openai_fmt = None
 
     @cached_property
     def to_openai(self):
-        if self.openai_fmt is not None:
-            return self.openai_fmt
         func_spec = {
             "name": self.name,
             "description": self.desc,
@@ -26,8 +23,7 @@ class ToolBase(ABC):
                 "properties": props,
                 "required": [x.name for x in self.params if x.required is True],
             }
-        self.openai_fmt = {"type": "function", "function": func_spec}
-        return self.openai_fmt
+        return {"type": "function", "function": func_spec}
 
     @abstractmethod
     def exec(self, **kwargs):
