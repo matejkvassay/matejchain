@@ -1,10 +1,10 @@
 from abc import abstractmethod, ABC
-from tool_param import ToolParam
+from matejchain.tool_param import ToolParam
 from functools import cached_property
 
 
 class ToolBase(ABC):
-    def __init__(self, name: str, desc: str, params: list[ToolParam] | None = None):
+    def __init__(self, name: str, desc: str, params: tuple[ToolParam, ...] | None = None):
         self.name = name
         self.desc = desc
         self.params = params
