@@ -10,7 +10,8 @@ class ChatAgent:
         self.hist = chat_hist
         self.tools = tools
         self.completion_kwargs = completion_kwargs
-        self.tool_executor = ToolExecutor(tools)
+        if tools is not None:
+            self.tool_executor = ToolExecutor(tools)
 
     def chat(self, usr_input: str | UsrMsg) -> AssMsg:
         if isinstance(usr_input, str):

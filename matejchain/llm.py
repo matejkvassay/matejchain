@@ -69,7 +69,7 @@ class LLM:
                  in case tools were provided and subsequently tool call predicted by LLM.
         """
         if isinstance(msgs, ChatHist):
-            msgs = msgs.to_openai()
+            msgs = msgs.openai_fmt
         else:
             msgs = [m.to_openai() for m in msgs]
         if tools is not None:
