@@ -25,5 +25,5 @@ class ChatAgent:
             tool_msgs = self.tool_executor.exec(response)
             if tool_msgs:
                 self.hist.add_many(tool_msgs)
-        response = self.llm.generate_one(usr_input, **self.completion_kwargs)
+        response = self.llm.generate_one(self.hist, **self.completion_kwargs)
         return response
