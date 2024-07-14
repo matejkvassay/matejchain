@@ -22,7 +22,7 @@ class LLM:
         self.client = OpenAI()
 
     def generate_one(
-            self, msgs: list[Msg] | ChatHist, tools: list[ToolBase] | None = None, **api_kwargs
+        self, msgs: list[Msg] | ChatHist, tools: list[ToolBase] | None = None, **api_kwargs
     ) -> AssMsg | list[ToolCallReq]:
         """
         Generate one text response with LLM.
@@ -39,11 +39,12 @@ class LLM:
         return self.generate(msgs, 1, tools, **api_kwargs)[0]
 
     def generate(
-            self,
-            msgs: list[Msg] | ChatHist,
-            choices: int = 1,
-            tools: list[ToolBase] | None = None,
-            **api_kwargs) -> list[AssMsg | list[ToolCallReq]]:
+        self,
+        msgs: list[Msg] | ChatHist,
+        choices: int = 1,
+        tools: list[ToolBase] | None = None,
+        **api_kwargs,
+    ) -> list[AssMsg | list[ToolCallReq]]:
         """
         Generate multiple text responses with LLM for single given messages list input.
 
@@ -68,18 +69,17 @@ class LLM:
         completion = self.client.chat.completions.create(
             model=self.model, messages=msgs, n=choices, **api_kwargs
         )
-        return self._parse_completions_response(completion, n=choices)
+        return self._parse_completions_response(completion)
 
     @staticmethod
-    def _parse_completions_response(completion: ChatCompletion, n: int) -> list[AssMsg | ToolCallReq]:
+    def _parse_completions_response(completion: ChatCompletion) -> list[AssMsg | ToolCallReq]:
         """
         Parses ChatCompletion choices into list of assistant responses and tools.
-        :param completion: completion OpenAI client object
-        :param n: int take first n choices
-        :return:
+        :param completion: ChatCompletion OpenAI object
+        :return: list of responses, response is either AssMsg or ToolCallReq
         """
         results = []
-        for c in completion.choices[:n]
+        for c in completion.choices:
             if c.message.tool_calls is None:
                 results.append(AssMsg(c.message.content))
             else:

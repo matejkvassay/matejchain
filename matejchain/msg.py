@@ -27,7 +27,7 @@ class Msg:
         if isinstance(content, ChatCompletionMessage):
             content = content.content
         if content is None:
-            raise ValueError('Cannot initialize message obj with empty content.')
+            raise ValueError("Cannot initialize message obj with empty content.")
         self.content = content
         self.role = role
         self.openai_fmt = {"role": self.role, "content": self.content}
