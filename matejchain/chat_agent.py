@@ -4,7 +4,7 @@ from matejchain.msg import UsrMsg, AssMsg
 from matejchain.tool_executor import ToolExecutor
 
 
-class ChatLLM:
+class ChatAgent:
     def __init__(self, llm: LLM, chat_hist: ChatHist, tools=None, **completion_kwargs):
         self.llm = llm
         self.hist = chat_hist
