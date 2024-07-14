@@ -11,7 +11,7 @@ client = OpenAI()
 class LLM:
     """
     Provides functionality generate text based on input messages.
-    LLM can either both generate responses and make choice of a tool call.
+    LLM can either both generate responses or make choice of a tool call.
     """
 
     def __init__(self, model: str):
@@ -26,6 +26,11 @@ class LLM:
     ) -> AssMsg | list[ToolCallReq]:
         """
         Generate one text response with LLM.
+
+        If you pass list of ToolBase instances into "tools" argument, you may expect
+        response to be either AssMsg instance (if LLM decided no tool calls are necessary)
+        or list of ToolCallReq (if LLM decided tool calls are needed).
+
         :param msgs: List of Msg instances - llm generation input.
                      All of these will be provided to LLM via completions API.
         :param tools: list of TooBase instances - tools to be passed to completions API
@@ -47,6 +52,10 @@ class LLM:
     ) -> list[AssMsg | list[ToolCallReq]]:
         """
         Generate multiple text responses with LLM for single given messages list input.
+
+        If you pass list of ToolBase instances into "tools" argument, you may expect
+        responses to be either AssMsg instance (if LLM decided no tool calls are necessary)
+        or list of ToolCallReq (if LLM decided tool calls are needed).
 
         :param msgs: List of Msg instances - llm generation input.
                      All of these will be provided to LLM via completions API.
