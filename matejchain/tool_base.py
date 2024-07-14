@@ -10,14 +10,14 @@ class ToolBase(ABC):
         self.params = params
 
     @cached_property
-    def to_openai(self):
+    def openai_fmt(self):
         func_spec = {
             "name": self.name,
             "description": self.desc,
         }
         if self.params is not None:
             props = {}
-            [props.update(par.to_openai()) for par in self.params]
+            [props.update(par.openai_fmt) for par in self.params]
             func_spec["parameters"] = {
                 "type": "object",
                 "properties": props,

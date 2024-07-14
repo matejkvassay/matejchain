@@ -1,3 +1,5 @@
+from openai.types.chat import ChatCompletionMessage
+
 ROLE_SYSTEM = "system"
 ROLE_USER = "user"
 ROLE_ASSISTANT = "assistant"
@@ -17,11 +19,13 @@ class Msg:
     or method "to_openai()"
     """
 
-    def __init__(self, role: str, content: str):
+    def __init__(self, role: str, content: str | ChatCompletionMessage):
         """
         :param role: OpenAI completions API compatible role, e.g. "user"
-        :param content: message content
+        :param content: message content str or ChatCompletionMessage
         """
+        if isinstance(content, ChatCompletionMessage):
+            content = content.content
         self.content = content
         self.role = role
         self.openai_fmt = {"role": self.role, "content": self.content}

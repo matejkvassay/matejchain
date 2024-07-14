@@ -34,4 +34,4 @@ def test_chat_history(sys_prompt):
 
     # check content
     assert h.to_list() == expected_list
-    assert h.to_openai() == [x.openai_fmt for x in expected_list]
+    assert h.openai_fmt() == [x.openai_fmt for x in expected_list]

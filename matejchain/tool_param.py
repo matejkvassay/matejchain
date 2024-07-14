@@ -14,7 +14,7 @@ class ToolParam:
         self.enum = enum
 
     @cached_property
-    def to_openai(self):
+    def openai_fmt(self):
         properties_dict = {
             self.name: {
                 "type": self.dtype,

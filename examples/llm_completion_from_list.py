@@ -6,6 +6,6 @@ msgs = [
     SysMsg("You are funny chatbot, always end sentence with a joke. Be very brief."),
     UsrMsg("Hey! Can you tell me about bus rides?"),
 ]
-response = llm.generate_one(msgs)
+response, _ = llm.generate_one(msgs)
 print(f"Prompt: {msgs}")
 print(f"LLM response: {response})")
