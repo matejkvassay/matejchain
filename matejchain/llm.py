@@ -10,8 +10,8 @@ client = OpenAI()
 
 class LLM:
     """
-    Uses OpenAI LLM completions API client to generate text based on input messages.
-    Slim wrapper around OpenAI client.
+    Provides functionality generate text based on input messages.
+    LLM can either both generate responses and make choice of a tool call.
     """
 
     def __init__(self, model: str):
@@ -23,7 +23,7 @@ class LLM:
 
     def generate_one(
             self, msgs: list[Msg] | ChatHist, tools: list[ToolBase] | None = None, **api_kwargs
-    ) -> tuple[AssMsg, list[ToolCallReq]]:
+    ) -> AssMsg | list[ToolCallReq]:
         """
         Generate one text response with LLM.
         :param msgs: List of Msg instances - llm generation input.
@@ -33,7 +33,8 @@ class LLM:
                            (e.g. temperature=0.5, seed=420).
                            See https://platform.openai.com/docs/api-reference/chat/create
                            for more details.
-        :return: tuple of (assistant message, list of tool call requests)
+        :return: Either AssMsg instance or list of ToolCallReq in case tools were provided
+                 and subsequently tool call predicted by LLM.
         """
         return self.generate(msgs, 1, tools, **api_kwargs)[0]
 
@@ -42,7 +43,7 @@ class LLM:
             msgs: list[Msg] | ChatHist,
             choices: int = 1,
             tools: list[ToolBase] | None = None,
-            **api_kwargs) -> list[tuple[AssMsg, ToolCallReq]]:
+            **api_kwargs) -> list[AssMsg | list[ToolCallReq]]:
         """
         Generate multiple text responses with LLM for single given messages list input.
 
@@ -54,7 +55,8 @@ class LLM:
                            API args (e.g. temperature=0.5, seed=420)
                            See https://platform.openai.com/docs/api-reference/chat/create
                            for more details.
-        :return: list of tuples consisting of (assistant_message, tool calls list)
+        :return: List of responses. Responses are either AssMsg instance or list of ToolCallReq
+                 in case tools were provided and subsequently tool call predicted by LLM.
         """
         if isinstance(msgs, ChatHist):
             msgs = msgs.to_openai()
@@ -69,19 +71,17 @@ class LLM:
         return self._parse_completions_response(completion, n=choices)
 
     @staticmethod
-    def _parse_completions_response(completion: ChatCompletion, n: int) -> list[tuple[AssMsg, ToolCallReq]]:
+    def _parse_completions_response(completion: ChatCompletion, n: int) -> list[AssMsg | ToolCallReq]:
         """
         Parses ChatCompletion choices into list of assistant responses and tools.
         :param completion: completion OpenAI client object
         :param n: int take first n choices
-        :return: list
+        :return:
         """
         results = []
-        for c in completion.choices[:n]:
-            msg = AssMsg(c.message.content)
-            tool_calls = []
-            if c.message.tool_calls is not None:
-                for t in c.message.tool_calls:
-                    tool_calls.append(ToolCallReq(t))
-            results.append((msg, tool_calls))
+        for c in completion.choices[:n]
+            if c.message.tool_calls is None:
+                results.append(AssMsg(c.message.content))
+            else:
+                results.append([ToolCallReq(t) for t in c.message.tool_calls])
         return results
