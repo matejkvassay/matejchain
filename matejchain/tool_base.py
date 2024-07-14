@@ -35,3 +35,6 @@ class ToolBase(ABC):
         :return: any output, to be defined in child class
         """
         return
+
+    def __call__(self, **kwargs):
+        return self.exec(**kwargs)
