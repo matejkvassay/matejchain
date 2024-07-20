@@ -1,4 +1,5 @@
 from matejchain.message import Message, SystemMessage
+from matejchain.llm_response import LLMResponse
 
 
 class ChatHistory:
@@ -27,13 +28,16 @@ class ChatHistory:
     def to_openai(self) -> list[dict]:
         return [m.to_openai() for m in self.to_list()]
 
-    def add(self, message: Message, append_to: list | None = None):
-        return self.add_many([message], append_to=append_to)
-
-    def add_many(self, messages: list[Message], append_to: list | None = None):
-        self.messages += messages
+    def add(self, message: Message | LLMResponse, append_to: list | None = None):
+        if isinstance(message, LLMResponse):
+            message = message.message
+        self.messages.append(message)
         if append_to is not None:
-            append_to.extend(messages)
+            append_to.append(message)
+
+    def add_many(self, messages: list[Message | LLMResponse], append_to: list | None = None):
+        for m in messages:
+            self.add(m, append_to=append_to)
 
     def _apply_limit(self):
         n_msgs = len(self.messages)

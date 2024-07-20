@@ -1,5 +1,5 @@
-from openai.types.chat import ChatCompletionMessage
 from openai.types.chat import (
+    ChatCompletionMessage,
     ChatCompletionMessageParam,
     ChatCompletionSystemMessageParam,
     ChatCompletionUserMessageParam,
@@ -14,11 +14,15 @@ class Message:
 
     @property
     def role(self):
-        return self.openai_param.role
+        if isinstance(self.openai_param, ChatCompletionMessage):
+            return self.openai_param.role
+        return self.openai_param.get("role")
 
     @property
     def content(self):
-        return self.openai_param.content
+        if isinstance(self.openai_param, ChatCompletionMessage):
+            return self.openai_param.content
+        return self.openai_param.get("content")
 
     def to_openai(self) -> ChatCompletionMessageParam:
         return self.openai_param
@@ -27,17 +31,20 @@ class Message:
         return self.__str__()
 
     def __str__(self):
-        role = self.openai_param.role.upper()
-        content = self.openai_param.content
-        if isinstance(self.openai_param, ChatCompletionAssistantMessageParam):
+        role = self.role.upper()
+        content = self.content
+        if self.role == "assistant":
             if self.openai_param.tool_calls is not None:
-                tool_call_names = [t.name for t in self.openai_param.tool_calls]
+                tool_call_names = [t.function.name for t in self.openai_param.tool_calls]
                 if content is None:
                     return f"{role}: call tools -> {tool_call_names}"
                 else:
                     return f"{role}: {content}; call tools -> {tool_call_names}"
-        if isinstance(self.openai_param, ChatCompletionToolMessageParam):
-            return f"{role}:{self.openai_param.tool_call_id} {content}"
+        if self.role == "tool":
+            if self.kwargs:
+                return f"{role}: {self.name}({self.kwargs}) -> {content}"
+            else:
+                return f"{role}: {self.name}() -> {content}"
         return f"{role}: {content}"
 
 
@@ -65,6 +72,8 @@ class AssistantMessage(Message):
 
 
 class ToolMessage(Message):
-    def __init__(self, tool_call_id: str, tool_call_result: str):
-        kv_data = {"role": "tool", "tool_call_id": tool_call_id, "content": tool_call_result}
+    def __init__(self, call_id: str, name: str, kwargs: str | None, result: str):
+        kv_data = {"role": "tool", "tool_call_id": call_id, "content": result}
+        self.name = name
+        self.kwargs = kwargs
         super().__init__(ChatCompletionToolMessageParam(**kv_data))

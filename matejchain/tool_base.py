@@ -9,11 +9,14 @@ class ToolBase(ABC):
         self.params = params
         self.openai_fmt = self._parse_to_openai_fmt()
 
+    def __call__(self, **kwargs):
+        return str(self._exec(**kwargs))
+
     def to_openai(self):
         return self.openai_fmt
 
     @abstractmethod
-    def exec(self, **kwargs):
+    def _exec(self, **kwargs):
         """
         Executes the tool with kwargs filled by LLM.
         This method has to take precisely the same names of args as are defined in "params"
@@ -21,10 +24,7 @@ class ToolBase(ABC):
         :param kwargs: filled by LLM, can be also no kwargs, to be defined in child class
         :return: any output, to be defined in child class
         """
-        return
-
-    def __call__(self, **kwargs):
-        return self.exec(**kwargs)
+        pass
 
     def _parse_to_openai_fmt(self):
         func_spec = {
