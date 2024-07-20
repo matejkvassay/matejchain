@@ -16,8 +16,7 @@ class ToolAgent:
     def chat(self, user_input: UserMessage) -> list[AssistantMessage | ToolMessage]:
         self.hist.add(user_input)
         llm_messages = []
-        llm_resp = self.llm.generate_one(self.hist, tools=self.tools,
-                                         **self.completion_kwargs)
+        llm_resp = self.llm.generate_one(self.hist, tools=self.tools, **self.completion_kwargs)
         self.hist.add(llm_resp.message, append_to=llm_messages)
         if llm_resp.tool_calls:
             tool_msgs = self.tool_executor.exec(llm_resp.tool_calls)

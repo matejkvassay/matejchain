@@ -20,19 +20,19 @@ class LLM:
         self.client = OpenAI()
 
     def generate_one(
-            self,
-            messages: Iterable[Message] | ChatHistory,
-            tools: Iterable[ToolBase] | None = None,
-            **api_kwargs,
+        self,
+        messages: Iterable[Message] | ChatHistory,
+        tools: Iterable[ToolBase] | None = None,
+        **api_kwargs,
     ) -> LLMResponse:
         return self.generate(messages, 1, tools, **api_kwargs)[0]
 
     def generate(
-            self,
-            messages: Iterable[Message] | ChatHistory,
-            choices: int = 1,
-            tools: list[ToolBase] | None = None,
-            **api_kwargs,
+        self,
+        messages: Iterable[Message] | ChatHistory,
+        choices: int = 1,
+        tools: list[ToolBase] | None = None,
+        **api_kwargs,
     ) -> list[LLMResponse]:
         messages = [m.to_openai() for m in messages]
         if tools is not None:
@@ -56,9 +56,11 @@ class LLM:
 
     def _parse_tool_call(self, tool_call: ChatCompletionMessageToolCall):
         if tool_call.type != "function":
-            raise NotImplementedError(f"Received unsupported tool call "
-                                      f"type: {tool_call.type}, only 'function' "
-                                      f"is supported")
+            raise NotImplementedError(
+                f"Received unsupported tool call "
+                f"type: {tool_call.type}, only 'function' "
+                f"is supported"
+            )
         logger.debug(f"Parsing JSON tool call args: {tool_call.function.arguments}")
         kwargs = loads(tool_call.function.arguments)
         return ToolCallRequest(id=tool_call.id, name=tool_call.function.name, kwargs=kwargs)

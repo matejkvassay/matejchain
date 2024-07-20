@@ -1,6 +1,5 @@
 from abc import abstractmethod, ABC
 from matejchain.tool_param import ToolParam
-from functools import cached_property
 
 
 class ToolBase(ABC):

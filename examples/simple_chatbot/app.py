@@ -7,8 +7,7 @@ from matejchain.tool_agent import ToolAgent
 CHAT_HIST_LIMIT = 5
 SYSTEM_PROMPT = "Your name is Mr. Jester Funnybot, always end your answer with a joke!"
 agent = ToolAgent(
-    llm=LLM("gpt-4o-mini"),
-    chat_history=ChatHistory(limit=CHAT_HIST_LIMIT, sys_msg=SYSTEM_PROMPT)
+    llm=LLM("gpt-4o-mini"), chat_history=ChatHistory(limit=CHAT_HIST_LIMIT, sys_msg=SYSTEM_PROMPT)
 )
 
 
@@ -17,7 +16,7 @@ def on_chat_start():
     global agent
     agent = ToolAgent(
         llm=LLM("gpt-4o-mini"),
-        chat_history=ChatHistory(limit=CHAT_HIST_LIMIT, sys_msg=SYSTEM_PROMPT)
+        chat_history=ChatHistory(limit=CHAT_HIST_LIMIT, sys_msg=SYSTEM_PROMPT),
     )
 
 

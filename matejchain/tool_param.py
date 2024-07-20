@@ -1,5 +1,3 @@
-from functools import cached_property
-
 PARAM_TYPE_MAP = {str: "string", int: "integer", bool: "boolean", float: "number"}
 
 

@@ -59,7 +59,7 @@ class UserMessage(Message):
 
 class AssistantMessage(Message):
     def __init__(
-            self, completions_message: ChatCompletionAssistantMessageParam | ChatCompletionMessage
+        self, completions_message: ChatCompletionAssistantMessageParam | ChatCompletionMessage
     ):
         super().__init__(completions_message)
 
