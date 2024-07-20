@@ -45,7 +45,7 @@ msgs = [
     ),
 ]
 resp = llm.generate_one(msgs, tools=[MathAddition(), MathMultiplication()])
-print(f"Reponse after tool prompt: {resp}")
+print(f"Response after tool prompt: {resp}")
 msgs.append(AssMsg("You have $15. 4x5 is equal to 20."))
 msgs.append(UsrMsg("Wow, you are a math genius!"))
 resp = llm.generate_one(msgs, tools=[MathAddition(), MathMultiplication()])
