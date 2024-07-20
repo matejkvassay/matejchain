@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "matejchain"
+authors = [
+    { name = "Matej Kvassay", email = "matejkvassay5@gmail.com" }
+]
+description = "Chatbot agent framework."
+version = "0.0.1"
+readme = "README.md"
+requires-python = ">=3.7"
+dependencies = [
+    "jinja2",
+    "openai",
+    "pytest"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pre-commit"
+]
+
+
+[tool.setuptools.packages.find]
+where = ["."]
