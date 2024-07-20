@@ -1,5 +1,5 @@
 ## About
-This is the most minimal example of simple chatbot application
+This is the most minimal example of simple tool using chatbot application
 using `matejchain` with `chainlit` backend and front-end.
 
 See more about chainlit at: https://docs.chainlit.io/get-started/overview

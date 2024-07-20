@@ -3,12 +3,12 @@ from matejchain.chat_history import ChatHistory
 from matejchain.llm import LLM
 from matejchain.message import UserMessage
 from matejchain.tool_agent import ToolAgent
+from .tools import MathAddition, MathMultiplication, GetCurrentDatetime
 
 CHAT_HIST_LIMIT = 5
 SYSTEM_PROMPT = "Your name is Mr. Jester Funnybot, always end your answer with a joke!"
-agent = ToolAgent(
-    llm=LLM("gpt-4o-mini"), chat_history=ChatHistory(limit=CHAT_HIST_LIMIT, sys_msg=SYSTEM_PROMPT)
-)
+agent = None
+tools = [MathAddition(), MathMultiplication(), GetCurrentDatetime()]
 
 
 @cl.on_chat_start
