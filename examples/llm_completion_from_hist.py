@@ -5,7 +5,7 @@ from matejchain.msg import SysMsg, UsrMsg
 TEMPERATURE = 3e-11
 SEED = 1337
 
-llm = LLM(model="gpt-3.5-turbo")
+llm = LLM(model="gpt-4o-mini")
 msgs = [
     SysMsg("You are funny chatbot, always end sentence with a joke. Be very brief."),
     UsrMsg("How to explain cars are not alive to visiting alien?"),

@@ -12,7 +12,7 @@ agent = None
 def on_chat_start():
     global agent
     hist = ChatHist(limit=CHAT_HIST_LIMIT, sys_msg=SYSTEM_PROMPT)
-    llm = LLM("gpt-3.5-turbo")
+    llm = LLM("gpt-4o-mini")
     agent = ChatAgent(llm=llm, chat_hist=hist)
 
 

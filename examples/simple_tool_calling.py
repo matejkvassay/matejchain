@@ -36,7 +36,7 @@ class MathMultiplication(ToolBase):
         return first_number * second_number
 
 
-llm = LLM("gpt-3.5-turbo")
+llm = LLM("gpt-4o-mini")
 msgs = [
     SysMsg("You are a math genius."),
     UsrMsg(
