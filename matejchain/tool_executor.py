@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 
 
 class ToolExecutor:
-    def __init__(self, tools: list[ToolBase], failed_msg="Failed to call tool"):
+    def __init__(self, tools: list[ToolBase], failed_msg="Failed to call tool: {}"):
         self.tool_idx = {t.name: t for t in tools}
         self.failed_msg = failed_msg
 
@@ -23,9 +23,12 @@ class ToolExecutor:
                 tool_msg = ToolMessage(
                     name=req.name, kwargs=req.kwargs, call_id=req.id, result=tool_output
                 )
-            except Exception:
+            except Exception as ex:
                 tool_msg = ToolMessage(
-                    name=req.name, kwargs=req.kwargs, call_id=req.id, result=self.failed_msg
+                    name=req.name,
+                    kwargs=req.kwargs,
+                    call_id=req.id,
+                    result=self.failed_msg.format(ex),
                 )
             tool_responses.append(tool_msg)
         return tool_responses

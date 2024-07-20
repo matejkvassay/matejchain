@@ -9,7 +9,7 @@ class MathAddition(ToolBase):
             ToolParam("first_number", "first number to add", float),
             ToolParam("second_number", "second number to add", float),
         )
-        super().__init__("math_add", "Always use this to add 2 numbers.", params)
+        super().__init__("math_add", "Mathematically adds 2 given numbers = a+b.", params)
 
     def _exec(self, first_number: float, second_number: float):
         return first_number + second_number
@@ -23,7 +23,7 @@ class MathMultiplication(ToolBase):
         )
         super().__init__(
             "math_multiply",
-            "Performs mathematical multiplication of 2 given numbers.",
+            "Performs mathematical multiplication of 2 given numbers = a*b.",
             params,
         )
 
@@ -38,5 +38,5 @@ class GetCurrentDatetime(ToolBase):
             "Returns current date and time.",
         )
 
-    def _exec(self, first_number: float, second_number: float):
+    def _exec(self):
         return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
