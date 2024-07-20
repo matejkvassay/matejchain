@@ -1,19 +1,19 @@
 from matejchain.llm import LLM
-from matejchain.chat_hist import ChatHist
-from matejchain.msg import SysMsg, UsrMsg
+from matejchain.chat_history import ChatHistory
+from matejchain.message import SystemMessage, UserMessage
 
-TEMPERATURE = 3e-11
+TEMPERATURE = 0.3
 SEED = 1337
 
-llm = LLM(model="gpt-3.5-turbo")
+llm = LLM(model="gpt-4o-mini")
 msgs = [
-    SysMsg("You are funny chatbot, always end sentence with a joke. Be very brief."),
-    UsrMsg("How to explain cars are not alive to visiting alien?"),
+    SystemMessage("You are funny chatbot, always end sentence with a joke. Be very brief."),
+    UserMessage("How to explain cars are not alive to visiting alien?"),
 ]
-hist = ChatHist.from_msgs(msgs, limit=5)
-print(f"Hist before generation:\n{hist}")
+hist = ChatHistory.from_msgs(msgs, limit=5)
+print(f"History before generation:\n{hist}")
 
 response = llm.generate(hist, choices=3, temperature=TEMPERATURE, seed=SEED)
 hist.add_many(response)
 
-print(f"Hist after generation:\n{hist}")
+print(f"History after generation:\n{hist}")
