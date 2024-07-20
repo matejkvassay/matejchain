@@ -7,7 +7,7 @@ class ChatHistory:
             sys_msg = SystemMessage(sys_msg)
         self.sys_msg = sys_msg
         self.limit = limit
-        self.msgs = list()
+        self.messages = list()
 
     @classmethod
     def from_msgs(cls, messages, limit: int = 3, register_sys_msg=True):
@@ -21,41 +21,40 @@ class ChatHistory:
 
     def to_list(self) -> list[Message]:
         if self.sys_msg is None:
-            return self.msgs
-        return [self.sys_msg] + self.msgs
+            return self.messages
+        return [self.sys_msg] + self.messages
 
     def to_openai(self) -> list[dict]:
         return [m.to_openai() for m in self.to_list()]
 
-    def add(self, message: Message):
-        self.msgs.append(message)
-        self._apply_limit()
-        return self
+    def add(self, message: Message, append_to: list | None = None):
+        return self.add_many([message], append_to=append_to)
 
-    def add_many(self, messages: list[Message]):
-        for m in messages:
-            self.add(m)
+    def add_many(self, messages: list[Message], append_to: list | None = None):
+        self.messages += messages
+        if append_to is not None:
+            append_to.extend(messages)
 
     def _apply_limit(self):
-        n_msgs = len(self.msgs)
+        n_msgs = len(self.messages)
         if self.sys_msg is not None:
             n_msgs += 1
         if n_msgs > self.limit:
-            self.msgs = self.msgs[1:]
+            self.messages = self.messages[1:]
 
     def __iter__(self):
         return self.to_list().__iter__()
 
     def __getitem__(self, item):
-        all_msgs = self.msgs
+        all_msgs = self.messages
         if self.sys_msg is None:
             all_msgs = [self.sys_msg] + all_msgs
         return all_msgs.__getitem__(item)
 
     def __len__(self):
         if self.sys_msg is None:
-            return len(self.msgs)
-        return len(self.msgs) + 1
+            return len(self.messages)
+        return len(self.messages) + 1
 
     def __add__(self, other):
         return self.add(other)

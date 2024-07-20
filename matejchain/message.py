@@ -12,6 +12,14 @@ class Message:
     def __init__(self, openai_param):
         self.openai_param = openai_param
 
+    @property
+    def role(self):
+        return self.openai_param.role
+
+    @property
+    def content(self):
+        return self.openai_param.content
+
     def to_openai(self) -> ChatCompletionMessageParam:
         return self.openai_param
 
@@ -51,7 +59,7 @@ class UserMessage(Message):
 
 class AssistantMessage(Message):
     def __init__(
-        self, completions_message: ChatCompletionAssistantMessageParam | ChatCompletionMessage
+            self, completions_message: ChatCompletionAssistantMessageParam | ChatCompletionMessage
     ):
         super().__init__(completions_message)
 
