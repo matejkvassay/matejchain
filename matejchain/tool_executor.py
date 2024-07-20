@@ -1,5 +1,5 @@
 from matejchain.tool_call_req import ToolCallReq
-from matejchain.msg import ToolMsg
+from matejchain.message import ToolMsg
 import logging
 
 logger = logging.getLogger(__name__)

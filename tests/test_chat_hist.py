@@ -1,5 +1,5 @@
-from matejchain.chat_hist import ChatHist
-from matejchain.msg import SysMsg, UsrMsg, AssMsg
+from matejchain.chat_history import ChatHistory
+from matejchain.message import SysMsg, UsrMsg, AssMsg
 import pytest
 
 
@@ -8,7 +8,7 @@ import pytest
 )
 def test_chat_history(sys_prompt):
     # init
-    h = ChatHist(4, sys_prompt)
+    h = ChatHistory(4, sys_prompt)
 
     if sys_prompt is not None:
         expected_list = [
@@ -34,4 +34,4 @@ def test_chat_history(sys_prompt):
 
     # check content
     assert h.to_list() == expected_list
-    assert h.openai_fmt == [x.openai_fmt for x in expected_list]
+    assert h.openai_param == [x.openai_param for x in expected_list]

@@ -12,9 +12,12 @@ class ToolParam:
         self.dtype = PARAM_TYPE_MAP[dtype]
         self.required = required
         self.enum = enum
+        self.openai_fmt = self._parse_to_openai_fmt()
 
-    @cached_property
-    def openai_fmt(self):
+    def to_openai(self):
+        return self.openai_fmt
+
+    def _parse_to_openai_fmt(self):
         properties_dict = {
             self.name: {
                 "type": self.dtype,

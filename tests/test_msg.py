@@ -1,4 +1,4 @@
-from matejchain.msg import UsrMsg, SysMsg, ToolMsg, AssMsg
+from matejchain.message import UsrMsg, SysMsg, ToolMsg, AssMsg
 
 
 def test_user_message():
@@ -8,7 +8,7 @@ def test_user_message():
     assert not msg.is_tool_msg()
     assert not msg.is_ass_msg()
     assert not msg.is_sys_msg()
-    assert msg.openai_fmt == openai_fmt
+    assert msg.openai_param == openai_fmt
     assert msg.to_openai() == openai_fmt
 
 
@@ -19,7 +19,7 @@ def test_system_message():
     assert not msg.is_tool_msg()
     assert not msg.is_ass_msg()
     assert msg.is_sys_msg()
-    assert msg.openai_fmt == openai_fmt
+    assert msg.openai_param == openai_fmt
     assert msg.to_openai() == openai_fmt
 
 
@@ -30,7 +30,7 @@ def test_assistant_message():
     assert not msg.is_tool_msg()
     assert msg.is_ass_msg()
     assert not msg.is_sys_msg()
-    assert msg.openai_fmt == openai_fmt
+    assert msg.openai_param == openai_fmt
     assert msg.to_openai() == openai_fmt
 
 
@@ -41,5 +41,5 @@ def test_tool_message():
     assert msg.is_tool_msg()
     assert not msg.is_ass_msg()
     assert not msg.is_sys_msg()
-    assert msg.openai_fmt == openai_fmt
+    assert msg.openai_param == openai_fmt
     assert msg.to_openai() == openai_fmt

@@ -8,22 +8,10 @@ class ToolBase(ABC):
         self.name = name
         self.desc = desc
         self.params = params
+        self.openai_fmt = self._parse_to_openai_fmt()
 
-    @cached_property
-    def openai_fmt(self):
-        func_spec = {
-            "name": self.name,
-            "description": self.desc,
-        }
-        if self.params is not None:
-            props = {}
-            [props.update(par.openai_fmt) for par in self.params]
-            func_spec["parameters"] = {
-                "type": "object",
-                "properties": props,
-                "required": [x.name for x in self.params if x.required is True],
-            }
-        return {"type": "function", "function": func_spec}
+    def to_openai(self):
+        return self.openai_fmt
 
     @abstractmethod
     def exec(self, **kwargs):
@@ -38,3 +26,18 @@ class ToolBase(ABC):
 
     def __call__(self, **kwargs):
         return self.exec(**kwargs)
+
+    def _parse_to_openai_fmt(self):
+        func_spec = {
+            "name": self.name,
+            "description": self.desc,
+        }
+        if self.params is not None:
+            props = {}
+            [props.update(par.openai_fmt) for par in self.params]
+            func_spec["parameters"] = {
+                "type": "object",
+                "properties": props,
+                "required": [x.name for x in self.params if x.required is True],
+            }
+        return {"type": "function", "function": func_spec}

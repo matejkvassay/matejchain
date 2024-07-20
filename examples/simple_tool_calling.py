@@ -1,7 +1,7 @@
 from matejchain.tool_base import ToolBase
 from matejchain.tool_param import ToolParam
 from matejchain.llm import LLM
-from matejchain.msg import SysMsg, UsrMsg, AssMsg
+from matejchain.message import SysMsg, UsrMsg, AssMsg
 
 
 class MathAddition(ToolBase):

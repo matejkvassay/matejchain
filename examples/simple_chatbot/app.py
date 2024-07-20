@@ -1,5 +1,5 @@
 import chainlit as cl
-from matejchain.chat_hist import ChatHist
+from matejchain.chat_history import ChatHistory
 from matejchain.llm import LLM
 from matejchain.chat_agent import ChatAgent
 
@@ -11,7 +11,7 @@ agent = None
 @cl.on_chat_start
 def on_chat_start():
     global agent
-    hist = ChatHist(limit=CHAT_HIST_LIMIT, sys_msg=SYSTEM_PROMPT)
+    hist = ChatHistory(limit=CHAT_HIST_LIMIT, sys_msg=SYSTEM_PROMPT)
     llm = LLM("gpt-4o-mini")
     agent = ChatAgent(llm=llm, chat_hist=hist)
 
