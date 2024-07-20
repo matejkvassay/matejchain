@@ -43,4 +43,4 @@ user_input = UserMessage(
 )
 tool_agent = ToolAgent(llm, hist, tools=[MathAddition(), MathMultiplication()])
 tool_agent.chat(user_input)
-print(hist)
+print(tool_agent)

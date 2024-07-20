@@ -21,7 +21,12 @@ class ToolAgent:
         if llm_resp.tool_calls:
             tool_msgs = self.tool_executor.exec(llm_resp.tool_calls)
             self.hist.add_many(tool_msgs, append_to=llm_messages)
-            print(self.hist)
             llm_resp = self.llm.generate_one(self.hist, tools=None, **self.completion_kwargs)
             self.hist.add(llm_resp.message, append_to=llm_messages)
         return llm_messages
+
+    def __repr__(self):
+        return self.__str__()
+
+    def __str__(self):
+        return f"ToolAgent chat history:\n{self.hist}"
