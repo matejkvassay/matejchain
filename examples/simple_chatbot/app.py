@@ -13,7 +13,7 @@ def on_chat_start():
     global agent
     hist = ChatHistory(limit=CHAT_HIST_LIMIT, sys_msg=SYSTEM_PROMPT)
     llm = LLM("gpt-4o-mini")
-    agent = ChatAgent(llm=llm, chat_hist=hist)
+    agent = ChatAgent(llm=llm, chat_history=hist)
 
 
 @cl.on_message

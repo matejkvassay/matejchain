@@ -1,4 +1,4 @@
-from matejchain.tool_call_req import ToolCallReq
+from matejchain.tool_call_request import ToolCallReq
 from matejchain.message import ToolMsg
 import logging
 
@@ -12,7 +12,7 @@ class ToolExecutor:
     def exec(self, tool_call_reqs: list[ToolCallReq]):
         tool_responses = []
         for req in tool_call_reqs:
-            tool = self.tool_idx.get(req.tool_name, None)
+            tool = self.tool_idx.get(req.name, None)
             if tool is not None:
                 try:
                     if req.kwargs is not None:

@@ -43,6 +43,9 @@ class ChatHistory:
         if n_msgs > self.limit:
             self.msgs = self.msgs[1:]
 
+    def __iter__(self):
+        return self.to_list().__iter__()
+
     def __getitem__(self, item):
         all_msgs = self.msgs
         if self.sys_msg is None:
