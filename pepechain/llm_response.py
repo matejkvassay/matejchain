@@ -1,5 +1,5 @@
-from matejchain.tool_call_request import ToolCallRequest
-from matejchain.message import AssistantMessage
+from pepechain.tool_call_request import ToolCallRequest
+from pepechain.message import AssistantMessage
 
 
 class LLMResponse:

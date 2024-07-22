@@ -1,5 +1,5 @@
-from matejchain.llm import LLM
-from matejchain.message import SystemMessage, UserMessage
+from pepechain.llm import LLM
+from pepechain.message import SystemMessage, UserMessage
 
 llm = LLM("gpt-4o-mini")
 msgs = [

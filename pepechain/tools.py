@@ -1,5 +1,5 @@
-from matejchain.tool_base import ToolBase
-from matejchain.tool_param import ToolParam
+from pepechain.tool_base import ToolBase
+from pepechain.tool_param import ToolParam
 from datetime import datetime
 
 

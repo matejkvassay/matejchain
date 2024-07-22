@@ -1,8 +1,8 @@
-from matejchain.message import Message, AssistantMessage
-from matejchain.chat_history import ChatHistory
-from matejchain.tool_base import ToolBase
-from matejchain.tool_call_request import ToolCallRequest
-from matejchain.llm_response import LLMResponse
+from pepechain.message import Message, AssistantMessage
+from pepechain.chat_history import ChatHistory
+from pepechain.tool_base import ToolBase
+from pepechain.tool_call_request import ToolCallRequest
+from pepechain.llm_response import LLMResponse
 from openai import OpenAI
 from openai.types.chat import ChatCompletion, ChatCompletionMessageToolCall
 from typing import Iterable

@@ -1,9 +1,9 @@
 import chainlit as cl
-from matejchain.chat_history import ChatHistory
-from matejchain.llm import LLM
-from matejchain.message import UserMessage, ToolMessage
-from matejchain.tool_agent import ToolAgent
-from matejchain.tools import MathAddition, MathMultiplication, GetCurrentDatetime
+from pepechain.chat_history import ChatHistory
+from pepechain.llm import LLM
+from pepechain.message import UserMessage, ToolMessage
+from pepechain.tool_agent import ToolAgent
+from pepechain.tools import MathAddition, MathMultiplication, GetCurrentDatetime
 
 CHAT_HIST_LIMIT = 5
 SYSTEM_PROMPT = "Your name is Mr. Jester Funnybot, always end your answer with a joke!"

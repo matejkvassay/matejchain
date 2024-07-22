@@ -1,7 +1,7 @@
-from matejchain.llm import LLM
-from matejchain.chat_history import ChatHistory
-from matejchain.message import AssistantMessage, UserMessage, ToolMessage
-from matejchain.tool_executor import ToolExecutor
+from pepechain.llm import LLM
+from pepechain.chat_history import ChatHistory
+from pepechain.message import AssistantMessage, UserMessage, ToolMessage
+from pepechain.tool_executor import ToolExecutor
 
 
 class ToolAgent:

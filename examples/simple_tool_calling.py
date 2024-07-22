@@ -1,9 +1,9 @@
-from matejchain.tool_base import ToolBase
-from matejchain.tool_param import ToolParam
-from matejchain.llm import LLM
-from matejchain.message import UserMessage
-from matejchain.chat_history import ChatHistory
-from matejchain.tool_agent import ToolAgent
+from pepechain.tool_base import ToolBase
+from pepechain.tool_param import ToolParam
+from pepechain.llm import LLM
+from pepechain.message import UserMessage
+from pepechain.chat_history import ChatHistory
+from pepechain.tool_agent import ToolAgent
 
 
 class MathAddition(ToolBase):
