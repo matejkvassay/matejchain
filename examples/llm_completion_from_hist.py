@@ -1,6 +1,6 @@
-from matejchain.llm import LLM
-from matejchain.chat_history import ChatHistory
-from matejchain.message import SystemMessage, UserMessage
+from pepechain.llm import LLM
+from pepechain.chat_history import ChatHistory
+from pepechain.message import SystemMessage, UserMessage
 
 TEMPERATURE = 0.3
 SEED = 1337

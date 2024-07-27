@@ -1,5 +1,5 @@
-from matejchain.message import Message, SystemMessage
-from matejchain.llm_response import LLMResponse
+from pepechain.message import Message, SystemMessage
+from pepechain.llm_response import LLMResponse
 
 
 class ChatHistory:

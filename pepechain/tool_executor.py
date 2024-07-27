@@ -1,6 +1,6 @@
-from matejchain.tool_call_request import ToolCallRequest
-from matejchain.message import ToolMessage
-from matejchain.tool_base import ToolBase
+from pepechain.tool_call_request import ToolCallRequest
+from pepechain.message import ToolMessage
+from pepechain.tool_base import ToolBase
 import logging
 
 logger = logging.getLogger(__name__)
