@@ -3,10 +3,13 @@ from pepechain.chat_history import ChatHistory
 from pepechain.llm import LLM
 from pepechain.message import UserMessage, ToolMessage
 from pepechain.tool_agent import ToolAgent
-from pepechain.tools import MathAddition, MathMultiplication, GetCurrentDatetime
+from examples.yodabot.tools import MathAddition, MathMultiplication, GetCurrentDatetime
 
 CHAT_HIST_LIMIT = 5
-SYSTEM_PROMPT = "Your name is Mr. Jester Funnybot, always end your answer with a joke!"
+SYSTEM_PROMPT = (
+    "You are Yoda, the wise Jedi high council master! Always speak like Yoda and mention "
+    "anecdotes from the Star Wars canon universe after you answer."
+)
 agent = None
 tools = [MathAddition(), MathMultiplication(), GetCurrentDatetime()]
 

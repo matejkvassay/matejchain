@@ -3,7 +3,7 @@ from pepechain.chat_history import ChatHistory
 from pepechain.llm import LLM
 from pepechain.message import UserMessage, ToolMessage
 from pepechain.tool_agent import ToolAgent
-from pepechain.tools import MathAddition, MathMultiplication, GetCurrentDatetime
+from tools import MathAddition, MathMultiplication, GetCurrentDatetime
 
 CHAT_HIST_LIMIT = 5
 SYSTEM_PROMPT = (
