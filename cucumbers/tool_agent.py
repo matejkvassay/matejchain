@@ -1,7 +1,7 @@
-from matejchain.llm import LLM
-from matejchain.chat_history import ChatHistory
-from matejchain.message import AssistantMessage, UserMessage, ToolMessage
-from matejchain.tool_executor import ToolExecutor
+from cucumbers.llm import LLM
+from cucumbers.chat_history import ChatHistory
+from cucumbers.message import AssistantMessage, UserMessage, ToolMessage
+from cucumbers.tool_executor import ToolExecutor
 
 
 class ToolAgent:

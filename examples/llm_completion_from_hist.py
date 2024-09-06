@@ -1,6 +1,6 @@
-from matejchain.llm import LLM
-from matejchain.chat_history import ChatHistory
-from matejchain.message import SystemMessage, UserMessage
+from cucumbers.llm import LLM
+from cucumbers.chat_history import ChatHistory
+from cucumbers.message import SystemMessage, UserMessage
 
 TEMPERATURE = 0.3
 SEED = 1337

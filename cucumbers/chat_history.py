@@ -1,5 +1,5 @@
-from matejchain.message import Message, SystemMessage
-from matejchain.llm_response import LLMResponse
+from cucumbers.message import Message, SystemMessage
+from cucumbers.llm_response import LLMResponse
 
 
 class ChatHistory:
