@@ -1,5 +1,5 @@
 from abc import abstractmethod, ABC
-from cucumbers.tool_param import ToolParam
+from matejchain.tool_param import ToolParam
 
 
 class ToolBase(ABC):

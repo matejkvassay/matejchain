@@ -1,5 +1,5 @@
-from cucumbers.tool_call_request import ToolCallRequest
-from cucumbers.message import AssistantMessage
+from matejchain.tool_call_request import ToolCallRequest
+from matejchain.message import AssistantMessage
 
 
 class LLMResponse:

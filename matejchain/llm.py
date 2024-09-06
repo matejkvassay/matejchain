@@ -1,8 +1,8 @@
-from cucumbers.message import Message, AssistantMessage
-from cucumbers.chat_history import ChatHistory
-from cucumbers.tool_base import ToolBase
-from cucumbers.tool_call_request import ToolCallRequest
-from cucumbers.llm_response import LLMResponse
+from matejchain.message import Message, AssistantMessage
+from matejchain.chat_history import ChatHistory
+from matejchain.tool_base import ToolBase
+from matejchain.tool_call_request import ToolCallRequest
+from matejchain.llm_response import LLMResponse
 from openai import OpenAI
 from openai.types.chat import ChatCompletion, ChatCompletionMessageToolCall
 from typing import Iterable

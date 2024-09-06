@@ -1,9 +1,9 @@
 import chainlit as cl
-from cucumbers.chat_history import ChatHistory
-from cucumbers.llm import LLM
-from cucumbers.message import UserMessage, ToolMessage
-from cucumbers.tool_agent import ToolAgent
-from cucumbers.tools import MathAddition, MathMultiplication, GetCurrentDatetime
+from matejchain.chat_history import ChatHistory
+from matejchain.llm import LLM
+from matejchain.message import UserMessage, ToolMessage
+from matejchain.tool_agent import ToolAgent
+from matejchain.tools import MathAddition, MathMultiplication, GetCurrentDatetime
 
 CHAT_HIST_LIMIT = 5
 SYSTEM_PROMPT = "Your name is Mr. Jester Funnybot, always end your answer with a joke!"

@@ -1,5 +1,5 @@
-from cucumbers.llm import LLM
-from cucumbers.message import SystemMessage, UserMessage
+from matejchain.llm import LLM
+from matejchain.message import SystemMessage, UserMessage
 
 llm = LLM("gpt-4o-mini")
 msgs = [
