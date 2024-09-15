@@ -1,11 +1,11 @@
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 from functools import lru_cache
 
 from matejchain.base.api_compatible_base import ApiCompatibleBase
 from matejchain.tool_param import ToolParam
 
 
-class ToolBase(ABC, ApiCompatibleBase):
+class ToolBase(ApiCompatibleBase):
     def __init__(self, name: str, desc: str, params: tuple[ToolParam, ...] | None = None):
         self.name = name
         self.desc = desc

@@ -1,11 +1,18 @@
-from pydantic import BaseModel
 from typing import Optional
+
+from pydantic import BaseModel
+
 from matejchain.base.api_compatible_base import ApiCompatibleBase
 
 
 class MsgBase(BaseModel, ApiCompatibleBase):
     role: str
     content: Optional[str]
+
+    def __init__(self, content: Optional[str] = None, **kwargs):
+        if content and "content" not in kwargs:
+            kwargs["content"] = content
+        super().__init__(**kwargs)
 
     def api_dict(self) -> dict:
         return self.dict()

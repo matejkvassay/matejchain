@@ -1,12 +1,10 @@
-from typing import Literal
-
 from matejchain.base import MsgBase
 
 
 class ToolMsg(MsgBase):
     content: str
     tool_call_id: str
-    role: str = Literal["tool"]
+    role: str = "tool"
 
     def __str__(self):
         content = self.content if self.content is not None else "<no tool output>"

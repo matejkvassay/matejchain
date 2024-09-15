@@ -1,4 +1,4 @@
-from typing import List, Literal, Optional
+from typing import List, Optional
 
 from openai.types.chat import ChatCompletionMessageToolCall
 from openai.types.chat.chat_completion import Choice
@@ -8,7 +8,7 @@ from matejchain.base import MsgBase
 
 class AssistantMsg(MsgBase):
     content: Optional[str]
-    role: Literal["assistant"]
+    role: str = "assistant"
     tool_calls: Optional[List[ChatCompletionMessageToolCall]] = None
 
     @classmethod
