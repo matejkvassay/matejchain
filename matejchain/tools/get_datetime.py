@@ -1,5 +1,6 @@
-from matejchain.base import ToolBase
 from datetime import datetime
+
+from matejchain.base import ToolBase
 
 
 class GetDatetime(ToolBase):
@@ -10,5 +11,5 @@ class GetDatetime(ToolBase):
         )
 
     @staticmethod
-    def exec(self):
+    def exec():
         return datetime.now().strftime("%Y-%m-%d %H:%M:%S")

@@ -1,7 +1,9 @@
-from matejchain.tool_call_request import ToolCallRequest
-from matejchain.messages import AssistantMsg
-from pydantic import BaseModel
 from typing import List, Optional
+
+from pydantic import BaseModel
+
+from matejchain.data_models.tool_call_request import ToolCallRequest
+from matejchain.msg.messages import AssistantMsg
 
 
 class GPTResponse(BaseModel):

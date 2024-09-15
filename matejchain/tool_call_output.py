@@ -1,7 +1,9 @@
-from pydantic import BaseModel
-from matejchain.messages import ToolMsg
 from typing import Optional
+
+from pydantic import BaseModel
+
 from matejchain.base import ApiCompatibleBase
+from matejchain.msg.messages import ToolMsg
 
 
 class ToolCallOutput(BaseModel, ApiCompatibleBase):

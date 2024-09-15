@@ -1,13 +1,14 @@
-from matejchain.messages import Msg, AssistantMsg
-from matejchain.base.tool_base import ToolBase
-from matejchain.tool_call_request import ToolCallRequest
-from matejchain.gpt_response import GPTResponse
-from openai import OpenAI
-from openai.types.chat.chat_completion import Choice
-from openai.types.chat import ChatCompletionMessageToolCall
 import logging
-from json.decoder import JSONDecodeError
 from json import loads
+from json.decoder import JSONDecodeError
+
+from openai import OpenAI
+from openai.types.chat import ChatCompletionMessageToolCall
+from openai.types.chat.chat_completion import Choice
+
+from matejchain.base import MsgBase, ToolBase
+from matejchain.data_models import GPTResponse, ToolCallRequest
+from matejchain.msg import AssistantMsg
 
 logger = logging.getLogger(__name__)
 
@@ -21,7 +22,7 @@ class LLM:
         self.client = OpenAI()
 
     def generate(
-        self, messages: list[Msg], tools: list[ToolBase] | None = None, **completion_kwargs
+        self, messages: list[MsgBase], tools: list[ToolBase] | None = None, **completion_kwargs
     ) -> list[GPTResponse]:
         kwargs = self.completion_kwargs.copy()
         kwargs.update(completion_kwargs)
