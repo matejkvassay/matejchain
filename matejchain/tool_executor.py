@@ -1,6 +1,6 @@
 from matejchain.tool_call_request import ToolCallRequest
-from matejchain.message import ToolMessage
-from matejchain.tool_base import ToolBase
+from matejchain.data_models import ToolMessage
+from matejchain.base.tool_base import ToolBase
 import logging
 
 logger = logging.getLogger(__name__)
