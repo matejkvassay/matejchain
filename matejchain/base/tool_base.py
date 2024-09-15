@@ -1,7 +1,8 @@
-from abc import abstractmethod, ABC
-from matejchain.tool_param import ToolParam
-from matejchain.base.api_compatible_base import ApiCompatibleBase
+from abc import ABC, abstractmethod
 from functools import lru_cache
+
+from matejchain.base.api_compatible_base import ApiCompatibleBase
+from matejchain.core.tool_param import ToolParam
 
 
 class ToolBase(ABC, ApiCompatibleBase):
