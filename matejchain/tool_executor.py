@@ -18,13 +18,11 @@ class ToolExecutor:
         self, tools: list[ToolBase], error_template: Template = DEFAULT_TOOL_ERROR_CONTENT
     ):
         """
-
         :param tools: list of potential tools to execute
         :param error_template: Jinja2 template, optionally can to contain {{error}} var.
                             When error occurs during tool execution str error message will be
                             inserted into {{error}} variable of this template and returned
                             as content in ToolMsg.
-
         """
         self.tool_idx = {t.name: t for t in tools}
         self.error_template = error_template

@@ -10,7 +10,12 @@ client = OpenAI()
 
 
 class GPT:
-    def __init__(self, model_name: str, completion_kwargs=None):
+    def __init__(self, model_name: str = "gpt-4o-mini", completion_kwargs=None):
+        """
+        :param model_name: Name of model for OpenAI API.
+        :param completion_kwargs: Default completions API kwargs that will be used
+                                  with every generate() request.
+        """
         self.model = model_name
         self.completion_kwargs = completion_kwargs if completion_kwargs is not None else dict()
         self.client = OpenAI()
@@ -22,7 +27,7 @@ class GPT:
         :param messages: list of MsgBase objects
         :param tools: optional, list of ToolBase objects, these tools will be passed to GPT
         :param n: default 1, how many different completions to generate
-        :param completion_kwargs: dict, any additional kwargs to set.
+        :param completion_kwargs: dict, any additional completions API kwargs to set.
                                   Constructor kwargs will be updated with these.
                                   Overlaps are not checked.
         :return:
