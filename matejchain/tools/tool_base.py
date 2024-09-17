@@ -2,7 +2,7 @@ from abc import abstractmethod
 from functools import lru_cache
 
 from matejchain.base.api_compatible_base import ApiCompatibleBase
-from matejchain.tool_param import ToolParam
+from matejchain.tools.tool_param import ToolParam
 
 
 class ToolBase(ApiCompatibleBase):

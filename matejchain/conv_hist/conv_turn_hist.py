@@ -21,20 +21,20 @@ class ConvTurnHist:
     def __init__(self, system_msg: SystemMsg, max_turns: int = 5):
         self.system_msg = system_msg
         self.max_turns = max_turns
-        self.conversation_turns: list[ConvTurn] = []
+        self.conv_turns: list[ConvTurn] = []
 
     def add(self, msg: MsgBase):
         if isinstance(msg, SystemMsg):
             raise ValueError("System message has to be set in constructor of ConversationHistory.")
         elif isinstance(msg, UserMsg):
-            self.conversation_turns.append(ConvTurn(user_msg=msg))
+            self.conv_turns.append(ConvTurn(user_msg=msg))
         elif isinstance(msg, AssistantMsg) or isinstance(msg, ToolMsg):
             if len(self) == 0:
                 raise ValueError(
                     "At least 1 user message has to be added first"
                     " before follow-up assistant/tool messages."
                 )
-            self.conversation_turns[-1].add_llm_response(msg)
+            self.conv_turns[-1].add_llm_response(msg)
         else:
             raise TypeError(
                 f"msg has to be Assistant/Tool/User message, got: {msg.__class__.__name__}"
@@ -43,12 +43,12 @@ class ConvTurnHist:
 
     def get(self):
         res = [self.system_msg]
-        for turn in self.conversation_turns:
+        for turn in self.conv_turns:
             res += turn.flatten()
         return res
 
     def _trim(self):
-        self.conversation_turns = self.conversation_turns[-self.max_turns :]
+        self.conv_turns = self.conv_turns[-self.max_turns :]
 
     def __len__(self):
-        return len(self.conversation_turns)
+        return len(self.conv_turns)
