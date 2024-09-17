@@ -7,7 +7,7 @@ class GetDatetime(ToolBase):
     def __init__(self):
         super().__init__(
             name="get_current_datetime",
-            desc="Returns current date and time.",
+            desc='returns current date and time in format "%Y-%m-%d %H:%M:%S"',
         )
 
     @staticmethod
