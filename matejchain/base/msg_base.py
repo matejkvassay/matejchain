@@ -7,7 +7,7 @@ from matejchain.base.api_compatible_base import ApiCompatibleBase
 
 class MsgBase(BaseModel, ApiCompatibleBase):
     role: str
-    content: Optional[str]
+    content: Optional[str] = None
 
     def __init__(self, content: Optional[str] = None, **kwargs):
         if content and "content" not in kwargs:

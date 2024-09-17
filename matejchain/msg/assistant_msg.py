@@ -7,7 +7,7 @@ from matejchain.base import MsgBase
 
 
 class AssistantMsg(MsgBase):
-    content: Optional[str]
+    content: Optional[str] = None
     role: str = "assistant"
     tool_calls: Optional[List[ChatCompletionMessageToolCall]] = None
 
