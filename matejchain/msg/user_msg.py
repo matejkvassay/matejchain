@@ -1,4 +1,4 @@
-from matejchain.base import MsgBase
+from matejchain.msg import MsgBase
 
 
 class UserMsg(MsgBase):
