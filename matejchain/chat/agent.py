@@ -1,6 +1,6 @@
 from matejchain.chat.gpt import GPT
 from matejchain.conv_hist import ConvTurnHist
-from matejchain.msg import SystemMsg, UserMsg
+from matejchain.msg import AssistantMsg, SystemMsg, UserMsg
 from matejchain.tools import ToolBase
 from matejchain.tools.tool_executor import DEFAULT_TOOL_ERROR_TEMPLATE, ToolExecutor
 
@@ -21,11 +21,20 @@ class Agent:
         self.tools = tools
         self.max_iter = tool_call_iter_limit
 
-    def chat(self, user_msg: UserMsg):
+    def chat(self, user_msg: UserMsg) -> AssistantMsg:
         self.conv_hist.add(user_msg)
         assistant_msg = self.gpt.generate(messages=self.conv_hist.get(), tools=self.tools, n=1)
-        n_iter = 0
         self.conv_hist.add(assistant_msg)
-        while (assistant_msg.tool_calls is not None) and n_iter < self.max_iter:
-            n_iter += 1
+
+        n_iter = 1
+        while (assistant_msg.tool_calls is not None) and n_iter <= self.max_iter:
+            tool_msgs = self.tool_executor(assistant_msg.tool_calls)
+            self.conv_hist.add_many(tool_msgs)
             assistant_msg = self.gpt.generate(messages=self.conv_hist.get(), tools=self.tools, n=1)
+
+            if n_iter == self.max_iter:
+                assistant_msg.tool_calls = None
+
+            self.conv_hist.add(assistant_msg)
+            n_iter += 1
+        return assistant_msg

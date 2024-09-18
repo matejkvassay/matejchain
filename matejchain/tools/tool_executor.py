@@ -27,6 +27,9 @@ class ToolExecutor:
         self.tool_idx = {t.name: t for t in tools}
         self.error_template = error_template
 
+    def __call__(self, tool_calls: list[ChatCompletionMessageToolCall]) -> list[ToolMsg]:
+        return self.exec(tool_calls)
+
     def exec(self, tool_calls: list[ChatCompletionMessageToolCall]) -> list[ToolMsg]:
         return [self._execute_tool_call(req) for req in tool_calls]
 

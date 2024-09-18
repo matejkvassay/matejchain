@@ -1,5 +1,4 @@
-from matejchain.base import MsgBase
-from matejchain.msg import AssistantMsg, SystemMsg, ToolMsg, UserMsg
+from matejchain.msg import AssistantMsg, MsgBase, SystemMsg, ToolMsg, UserMsg
 
 
 class ConvTurn:
@@ -40,6 +39,10 @@ class ConvTurnHist:
                 f"msg has to be Assistant/Tool/User message, got: {msg.__class__.__name__}"
             )
         self._trim()
+
+    def add_many(self, msgs: list[MsgBase]):
+        for m in msgs:
+            self.add(m)
 
     def get(self):
         res = [self.system_msg]
