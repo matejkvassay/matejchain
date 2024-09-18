@@ -1,1 +1,1 @@
-from matejchain.conv_hist.conv_turn_hist import ConvTurnHist
+from .conv_turn_hist import ConvTurnHist

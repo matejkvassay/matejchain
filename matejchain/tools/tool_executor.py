@@ -5,17 +5,17 @@ from json import JSONDecodeError
 from jinja2 import Template
 from openai.types.chat import ChatCompletionMessageToolCall
 
-from matejchain.base import ToolBase
 from matejchain.msg import ToolMsg
+from matejchain.tools import ToolBase
 
 logger = logging.getLogger(__name__)
 
-DEFAULT_TOOL_ERROR_CONTENT = Template("Error during tool execution: {{error}}")
+DEFAULT_TOOL_ERROR_TEMPLATE = Template("Error during tool execution: {{error}}")
 
 
 class ToolExecutor:
     def __init__(
-        self, tools: list[ToolBase], error_template: Template = DEFAULT_TOOL_ERROR_CONTENT
+        self, tools: list[ToolBase], error_template: Template = DEFAULT_TOOL_ERROR_TEMPLATE
     ):
         """
         :param tools: list of potential tools to execute
@@ -27,7 +27,7 @@ class ToolExecutor:
         self.tool_idx = {t.name: t for t in tools}
         self.error_template = error_template
 
-    def exec(self, tool_calls: list[ChatCompletionMessageToolCall]):
+    def exec(self, tool_calls: list[ChatCompletionMessageToolCall]) -> list[ToolMsg]:
         return [self._execute_tool_call(req) for req in tool_calls]
 
     def _execute_tool_call(self, tool_call: ChatCompletionMessageToolCall) -> ToolMsg:
@@ -36,7 +36,10 @@ class ToolExecutor:
         try:
             tool = self.tool_idx.get(name, None)
             if tool is None:
-                raise KeyError(f'Tool function with name "{name}" not found.')
+                logger.exception(
+                    f"Tool call execution failed for req {tool_call.dict()}, tool not found"
+                )
+                raise KeyError(f'Tool with name "{name}" not found.')
             try:
                 kwargs = json.loads(kwargs)
             except JSONDecodeError:
